@@ -1,19 +1,28 @@
-/* App.css - Hero + Header + Buttons */
+/* =========================
+   App.css - mkisaan frontend styles (updated for signup responsiveness)
+   ========================= */
 
-/* Reset / root sizing */
+/* Reset and base styles */
 html, body, #root {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow: hidden; /* keep hero clean */
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* Background section */
+/* Ensure all elements use border-box */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* -------------------------
+   Hero Background
+   ------------------------- */
 .app-background {
   width: 100vw;
   height: 100vh;
@@ -21,13 +30,13 @@ html, body, #root {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  background-color: #6aa84f; /* fallback color */
+  background-color: #6aa84f;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-/* Mobile fallback: show full image on small screens */
+/* Mobile version */
 @media (max-width: 768px) {
   .app-background {
     background-size: contain;
@@ -35,48 +44,47 @@ html, body, #root {
   }
 }
 
-/* Header - top-left logo area */
+/* -------------------------
+   Header / Logo
+   ------------------------- */
 .app-header {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 28px 44px;
+  padding: 20px 28px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  pointer-events: none; /* header not interactive by default; buttons below handle interactivity */
+  z-index: 30;
 }
 
 .logo-section {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  pointer-events: auto; /* allow hover on logo if needed */
 }
 
-/* Logo image rounded card style */
 .logo-img {
   width: 56px;
   height: 56px;
   object-fit: contain;
-  border-radius: 14px;            /* rounded corners like sample */
-  background-color: #ffffff;      /* white card */
-  padding: 8px;                   /* inner spacing so icon breathes */
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  display: inline-block;
+  border-radius: 14px;
+  background-color: #fff;
+  padding: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
-/* mkisaan text style next to logo */
 .logo-text {
   font-size: 40px;
   font-weight: 700;
-  color: #1a1f24; /* dark grey tone */
+  color: #1a1f24;
   letter-spacing: -0.6px;
-  margin-left: 6px;
 }
 
-/* Hero text container (left-side) */
+/* -------------------------
+   Hero Text + Buttons
+   ------------------------- */
 .hero-text {
   position: absolute;
   left: 7%;
@@ -86,19 +94,19 @@ html, body, #root {
   display: flex;
   flex-direction: column;
   gap: 28px;
+  z-index: 10;
 }
 
-/* Headline */
 .hero-text h1 {
   margin: 0;
-  color: #ffffff;
+  color: #fff;
   font-size: 3.4rem;
   line-height: 1.02;
   font-weight: 700;
-  text-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  text-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
 }
 
-/* Buttons container - side by side */
+/* Hero buttons (side by side) */
 .hero-buttons {
   display: flex;
   gap: 18px;
@@ -106,67 +114,65 @@ html, body, #root {
   margin-top: 4px;
 }
 
-/* Base button - neutral look */
-.btn {
-  min-width: 160px;
-  padding: 14px 24px;
-  border-radius: 14px;
-  border: 2px solid rgba(255,255,255,0.9);
-  background: rgba(255,255,255,0.02); /* almost transparent */
-  color: #ffffff;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  transition: background-color 180ms ease, color 180ms ease, transform 120ms ease;
-}
-
-/* Ghost style (used here) - keeps neutral but visible */
-.btn-ghost {
-  background: rgba(255,255,255,0.9); /* white fill so text readable on varied backgrounds */
-  color: #111; /* dark text on white button for neutral initial look */
-  border: none; /* no border when using white fill */
-}
-
-/* Hover: both btn-ghost and plain should turn green (visual active state) */
-.btn-ghost:hover,
-.btn:hover {
-  background: linear-gradient(180deg, #2f8a35 0%, #1e6b27 100%); /* green gradient */
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(46, 125, 50, 0.28);
-}
-
-/* Focus styles for accessibility */
-.btn:focus {
-  outline: 3px solid rgba(46,125,50,0.28);
-  outline-offset: 3px;
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width: 1024px) {
-  .hero-text { max-width: 56%; left: 6%; }
-  .logo-text { font-size: 36px; }
-  .hero-text h1 { font-size: 2.6rem; }
-  .btn { min-width: 140px; padding: 12px 20px; font-size: 16px; }
-}
-
-@media (max-width: 768px) {
-  .app-header { padding: 18px 20px; }
-  .logo-img { width: 48px; height: 48px; padding: 6px; border-radius: 12px; }
-  .logo-text { font-size: 26px; }
-  .hero-text {
-    left: 5%;
-    top: 48%;
-    transform: translateY(-50%);
-    max-width: 86%;
+/* -------------------------
+   Buttons - Unified Design
+   ------------------------- */
+   .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 140px;
+    padding: 12px 24px;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+    border: none;
+    background: #ffffff;
+    color: #111;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
   }
-  .hero-text h1 { font-size: 1.9rem; line-height: 1.05; }
-  .hero-buttons { gap: 12px; flex-wrap: wrap; }
-  .btn { min-width: 130px; font-size: 15px; padding: 10px 16px; border-radius: 12px; }
-}
+  
+  /* Outlined (used for cancel, back etc.) */
+  .btn-outline {
+    background: transparent;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    color: #111;
+  }
+  
+  /* ✅ Green hover/focus/active behavior for all button types */
+  .btn:hover,
+  .btn:focus,
+  .btn:active,
+  .btn-outline:hover,
+  .btn-outline:focus,
+  .btn-outline:active {
+    background: linear-gradient(180deg, #38a23f 0%, #238c2c 100%);
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(46, 125, 50, 0.35);
+    border: none !important;
+  }
+  
+  /* Pressed (active) state - slightly darker */
+  .btn:active,
+  .btn-outline:active {
+    transform: translateY(0);
+    background: linear-gradient(180deg, #2c9a3a 0%, #1f7a29 100%);
+    box-shadow: 0 4px 10px rgba(46, 125, 50, 0.25);
+  }
+  
+  /* Focus ring for accessibility */
+  .btn:focus-visible {
+    outline: 3px solid rgba(46, 125, 50, 0.25);
+    outline-offset: 3px;
+  }
 
-/* -------- Login modal overlay -------- */
+/* -------------------------
+   Modal (Login)
+   ------------------------- */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -179,11 +185,12 @@ html, body, #root {
 }
 
 .modal-card {
-  width: 420px;
-  max-width: 100%;
+  width: 90%;
+  max-width: 420px;
   background: #fff;
   border-radius: 14px;
-  padding: 22px;
+  padding: 20px;
+  box-sizing: border-box;
   box-shadow: 0 20px 40px rgba(6, 10, 6, 0.35);
   color: #111;
 }
@@ -198,39 +205,30 @@ html, body, #root {
   margin-bottom: 12px;
 }
 
+/* Inputs in modal */
 .login-form .input-label {
   display: block;
   margin-bottom: 12px;
   font-weight: 600;
   color: #333;
 }
+
 .login-form input[type="tel"],
 .login-form input[type="text"],
 .login-form input[type="email"] {
   display: block;
   width: 100%;
   max-width: 100%;
-  box-sizing: border-box; /* ensures padding is included in width */
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid #ddd;
   margin-top: 6px;
   font-size: 1rem;
   background: #fff;
-}
-
-.modal-card {
-  width: 90%;
-  max-width: 420px; /* ensures it doesn’t stretch */
-  background: #fff;
-  border-radius: 14px;
-  padding: 24px;
   box-sizing: border-box;
-  box-shadow: 0 20px 40px rgba(6, 10, 6, 0.35);
-  color: #111;
 }
 
-/* modal actions (buttons) */
+/* Modal actions */
 .modal-actions {
   display: flex;
   justify-content: space-between;
@@ -238,55 +236,59 @@ html, body, #root {
   margin-top: 12px;
 }
 
-/* primary / outline button classes used earlier */
-.btn-primary {
-  background: linear-gradient(180deg, #2f8a35 0%, #1e6b27 100%);
-  color: #fff;
-  border: none;
-}
-.btn-outline {
-  background: transparent;
-  border: 2px solid rgba(0, 0, 0, 0.08);
-  color: #111;
-}
+/* -------------------------
+   Signup Page Card (centered + responsive)
+   ------------------------- */
 
-/* -------- Signup page card -------- */
+/* center horizontally and vertically but keep hero background visible */
 .signup-card-wrap {
+  position: absolute;
+  inset: 0;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  height: 100vh;
-  padding-left: 6%;
+  align-items: center;        /* vertical center */
+  justify-content: center;    /* horizontal center */
+  padding: 24px;
+  pointer-events: auto;
+  z-index: 20;
 }
+
+/* card sizing: responsive width, capped height, scroll inside if needed */
 .signup-card {
-  width: 460px;
-  background: rgba(255,255,255,0.98);
-  padding: 26px;
+  width: 520px;
+  max-width: calc(100% - 48px);
+  background: rgba(255, 255, 255, 0.98);
+  padding: 20px;
   border-radius: 14px;
-  box-shadow: 0 18px 40px rgba(6,10,6,0.25);
+  box-shadow: 0 18px 40px rgba(6, 10, 6, 0.25);
   color: #111;
+
+  /* New: constrain height so it never goes off screen and enable scrolling */
+  max-height: calc(100vh - 80px);
+  overflow: auto;
 }
 
-/* grid for first/last name side-by-side */
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
+/* reduce inner spacing for readability */
 .signup-card h2 {
   margin-top: 0;
   margin-bottom: 8px;
   font-size: 1.6rem;
 }
 
-/* inputs in signup form */
+/* two-column for first/last name - collapses on small widths */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* labels and inputs */
 .signup-form label {
   display: block;
   margin-top: 10px;
   font-weight: 600;
   color: #333;
 }
+
 .signup-form input,
 .signup-form select {
   width: 100%;
@@ -295,13 +297,54 @@ html, body, #root {
   border: 1px solid #ddd;
   margin-top: 6px;
   font-size: 0.98rem;
+  box-sizing: border-box;
 }
 
-/* adjust for small screens */
-@media (max-width: 768px) {
+/* action buttons alignment inside signup card */
+.signup-card .modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* ensure the back/create buttons have consistent shape */
+.signup-card .btn {
+  min-width: 140px;
+  padding: 12px 22px;
+}
+
+/* -------------------------
+   Responsive behavior
+   ------------------------- */
+@media (max-width: 900px) {
+  .hero-text { max-width: 56%; left: 6%; }
+  .logo-text { font-size: 36px; }
+  .hero-text h1 { font-size: 2.6rem; }
+  .signup-card { width: 480px; }
+}
+
+@media (max-width: 700px) {
+  /* collapse two-column into one */
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-text { display: none; } /* hide hero text on narrow devices while signing up */
+  .app-header { padding: 14px 16px; }
+
   .signup-card {
     width: 92%;
-    margin-left: 4%;
+    padding: 16px;
+    max-height: calc(100vh - 48px);
   }
-  .hero-text { display: none; } /* hide hero text on small signup page if needed */
+
+  .btn { min-width: 120px; font-size: 15px; padding: 10px 14px; border-radius: 12px; }
+}
+
+@media (max-width: 420px) {
+  .logo-img { width: 44px; height: 44px; padding: 6px; border-radius: 10px; }
+  .logo-text { font-size: 22px; }
+  .signup-card { padding: 14px; }
+  .signup-card h2 { font-size: 1.2rem; }
 }
