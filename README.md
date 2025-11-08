@@ -1,4 +1,4 @@
-<!-- # React + TypeScript + Vite
+# React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -70,88 +70,4 @@ export default defineConfig([
     },
   },
 ])
-``` -->
-
-flowchart TD
-  subgraph "Edge & Frontend"
-    CDN[CDN (S3/CloudFront or Vercel/Netlify)]
-    Browser[Browser SPA (React)]
-  end
-
-  subgraph "Kubernetes / Cloud Infra"
-    Ingress[Ingress / API Gateway (Traefik/Kong/API GW)]
-    BFF[BFF / API Gateway (Node/Express) / GraphQL]
-    Auth[Auth Service (Keycloak / OIDC)]
-    LB[LoadBalancer]
-    Redis[Redis (cache / session)]
-  end
-
-  subgraph "Microservices (K8s)"
-    ProductSvc[Product Service]
-    SearchSvc[Search Service / Indexer]
-    ChatSvc[Chat Service (WebSocket/RTC)]
-    NotifSvc[Notification Service (email/sms/push)]
-    WorkerSvc[Worker Pool (image processing, indexing)]
-    UserSvc[User/Profile Service]
-  end
-
-  subgraph "Data & Messaging"
-    Mongo[MongoDB Replica Set]
-    ES[Elasticsearch Cluster]
-    Kafka[Kafka Cluster]
-    MinIO[Object Storage (S3/MinIO) - product images]
-  end
-
-  subgraph "Observability & Infra Services"
-    Prom[Prometheus/Grafana]
-    Jaeger[Jaeger / OpenTelemetry]
-    ELK[ELK / EFK Logs]
-  end
-
-  %% Edge flows
-  Browser -->|HTTPS| CDN
-  Browser -->|HTTPS (API calls, WebSockets)| Ingress
-
-  Ingress --> BFF
-  Browser -. websocket .-> ChatSvc
-
-  BFF --> Auth
-  BFF --> ProductSvc
-  BFF --> SearchSvc
-  BFF --> ChatSvc
-  BFF --> NotifSvc
-  BFF --> UserSvc
-
-  %% Product flow
-  ProductSvc -->|store metadata| Mongo
-  ProductSvc -->|upload image to| MinIO
-  ProductSvc -->|emit product.created| Kafka
-
-  %% Indexing flow
-  Kafka -->|product.created| WorkerSvc
-  WorkerSvc -->|generate thumbnails/optimize| MinIO
-  WorkerSvc -->|index doc| ES
-
-  SearchSvc --> ES
-  SearchSvc --> Mongo
-
-  %% Chat flow
-  ChatSvc --> Kafka
-  ChatSvc --> Mongo
-
-  %% Notification flow
-  ProductSvc -->|product.created| Kafka
-  Kafka --> NotifSvc
-  NotifSvc -->|email/sms/push| External[External Providers (SES/Twilio/FCM)]
-
-  %% Observability
-  ProductSvc --> Prom
-  ChatSvc --> Jaeger
-  WorkerSvc --> ELK
-
-  %% Users & sessions
-  Auth --> Mongo
-  BFF --> Redis
-
-  %% Arrows for storage visibility
-  ProductSvc --> ES
+```
