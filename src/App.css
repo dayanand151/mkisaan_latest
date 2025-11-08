@@ -1,42 +1,167 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* App.css - Hero + Header + Buttons */
+
+/* Reset / root sizing */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden; /* keep hero clean */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Background section */
+.app-background {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-color: #6aa84f; /* fallback color */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Mobile fallback: show full image on small screens */
+@media (max-width: 768px) {
+  .app-background {
+    background-size: contain;
+    background-position: center top;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+/* Header - top-left logo area */
+.app-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 28px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  pointer-events: none; /* header not interactive by default; buttons below handle interactivity */
+}
+
+.logo-section {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  pointer-events: auto; /* allow hover on logo if needed */
+}
+
+/* Logo image rounded card style */
+.logo-img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  border-radius: 14px;            /* rounded corners like sample */
+  background-color: #ffffff;      /* white card */
+  padding: 8px;                   /* inner spacing so icon breathes */
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  display: inline-block;
+}
+
+/* mkisaan text style next to logo */
+.logo-text {
+  font-size: 40px;
+  font-weight: 700;
+  color: #1a1f24; /* dark grey tone */
+  letter-spacing: -0.6px;
+  margin-left: 6px;
+}
+
+/* Hero text container (left-side) */
+.hero-text {
+  position: absolute;
+  left: 7%;
+  top: 46%;
+  transform: translateY(-50%);
+  max-width: 44%;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* Headline */
+.hero-text h1 {
+  margin: 0;
+  color: #ffffff;
+  font-size: 3.4rem;
+  line-height: 1.02;
+  font-weight: 700;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.35);
+}
+
+/* Buttons container - side by side */
+.hero-buttons {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+/* Base button - neutral look */
+.btn {
+  min-width: 160px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.02); /* almost transparent */
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transition: background-color 180ms ease, color 180ms ease, transform 120ms ease;
+}
+
+/* Ghost style (used here) - keeps neutral but visible */
+.btn-ghost {
+  background: rgba(255,255,255,0.9); /* white fill so text readable on varied backgrounds */
+  color: #111; /* dark text on white button for neutral initial look */
+  border: 0; /* no border when using white fill */
+}
+
+/* Hover: both btn-ghost and plain should turn green (visual active state) */
+.btn-ghost:hover,
+.btn:hover {
+  background: linear-gradient(180deg, #2f8a35 0%, #1e6b27 100%); /* green gradient */
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(46, 125, 50, 0.28);
+}
+
+/* Focus styles for accessibility */
+.btn:focus {
+  outline: 3px solid rgba(46,125,50,0.28);
+  outline-offset: 3px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) {
+  .hero-text { max-width: 56%; left: 6%; }
+  .logo-text { font-size: 36px; }
+  .hero-text h1 { font-size: 2.6rem; }
+  .btn { min-width: 140px; padding: 12px 20px; font-size: 16px; }
+}
+
+@media (max-width: 768px) {
+  .app-header { padding: 18px 20px; }
+  .logo-img { width: 48px; height: 48px; padding: 6px; border-radius: 12px; }
+  .logo-text { font-size: 26px; }
+  .hero-text {
+    left: 5%;
+    top: 48%;
+    transform: translateY(-50%);
+    max-width: 86%;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  .hero-text h1 { font-size: 1.9rem; line-height: 1.05; }
+  .hero-buttons { gap: 12px; flex-wrap: wrap; }
+  .btn { min-width: 130px; font-size: 15px; padding: 10px 16px; border-radius: 12px; }
 }
